@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'body_fat_estimator_page.dart';
 // ============================================================
 // ADVANCED BMI CALCULATOR - BUG PROOF VERSION
 // This version is made to be as stable as possible.
@@ -327,8 +327,42 @@ class _AdvancedBMICalculatorPageState
               onChanged: (value) => setState(() => selectedSex = value!),
             ),
             const SizedBox(height: 16),
-            buildInput(bodyFatController, "Body Fat %", "%", Icons.percent),
+            Row(
+  children: [
+    Expanded(
+      child: buildInput(
+        bodyFatController,
+        "Body Fat %",
+        "%",
+        Icons.percent,
+      ),
+    ),
 
+    const SizedBox(width: 8),
+
+    IconButton(
+      tooltip: "Estimate Body Fat",
+      icon: const Icon(
+        Icons.help_outline,
+        color: Colors.blue,
+      ),
+      onPressed: () async {
+        final result = await Navigator.push<double>(
+          context,
+          MaterialPageRoute(
+            builder: (_) => const BodyFatEstimatorPage(),
+          ),
+        );
+
+        if (result != null) {
+          setState(() {
+            bodyFatController.text = result.toStringAsFixed(1);
+          });
+        }
+      },
+    ),
+  ],
+),
             const SizedBox(height: 20),
 
             ElevatedButton(
