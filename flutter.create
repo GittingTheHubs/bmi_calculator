@@ -1,0 +1,325 @@
+import 'package:flutter/material.dart';
+
+class AdvancedBMICalculatorPage extends StatefulWidget {
+  const AdvancedBMICalculatorPage({super.key});
+
+  @override
+  State<AdvancedBMICalculatorPage> createState() =>
+      _AdvancedBMICalculatorPageState();
+}
+
+class _AdvancedBMICalculatorPageState
+    extends State<AdvancedBMICalculatorPage> {
+  final heightController = TextEditingController();
+  final weightController = TextEditingController();
+  final ageController = TextEditingController();
+  final bodyFatController = TextEditingController();
+
+  String selectedSex = "Male";
+
+  double bmi = 0;
+  double fatMass = 0;
+  double leanMass = 0;
+  double ffmi = 0;
+
+  String bmiCategory = "";
+  String bodyFatCategory = "";
+  String healthProfile = "";
+  String recommendation = "";
+
+  @override
+  void dispose() {
+    heightController.dispose();
+    weightController.dispose();
+    ageController.dispose();
+    bodyFatController.dispose();
+    super.dispose();
+  }
+
+  void calculateAdvancedBMI() {
+    // Will be implemented in Part 2
+  }
+
+  Widget buildInput(
+      TextEditingController controller,
+      String label,
+      String suffix,
+      ) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 18),
+      child: TextField(
+        controller: controller,
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(
+          labelText: label,
+          suffixText: suffix,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Advanced BMI Calculator"),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(18),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+
+            const Text(
+              "Advanced Mode",
+              style: TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 5),
+
+            Text(
+              "Uses body fat percentage, age and sex for a more accurate health assessment.",
+              style: TextStyle(
+                color: Colors.grey[700],
+              ),
+            ),
+
+            const SizedBox(height: 25),
+
+            buildInput(heightController, "Height", "cm"),
+
+            buildInput(weightController, "Weight", "kg"),
+
+            buildInput(ageController, "Age", "yrs"),
+
+            DropdownButtonFormField<String>(
+              value: selectedSex,
+              decoration: InputDecoration(
+                labelText: "Sex",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+              items: const [
+                DropdownMenuItem(
+                  value: "Male",
+                  child: Text("Male"),
+                ),
+                DropdownMenuItem(
+                  value: "Female",
+                  child: Text("Female"),
+                ),
+              ],
+              onChanged: (value) {
+                setState(() {
+                  selectedSex = value!;
+                });
+              },
+            ),
+
+            const SizedBox(height: 18),
+
+            buildInput(bodyFatController, "Body Fat Percentage", "%"),
+
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton.icon(
+                onPressed: () {
+                  // Navigate to body fat guide later
+                },
+                icon: const Icon(Icons.help_outline),
+                label: const Text("Don't know your body fat?"),
+              ),
+            ),
+
+            const SizedBox(height: 15),
+
+            Card(
+              color: Colors.blue.shade50,
+              child: const Padding(
+                padding: EdgeInsets.all(14),
+                child: Text(
+                  "Body fat percentage gives a much more accurate picture of your health than BMI alone. "
+                  "People with the same BMI may have very different body compositions.",
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            ElevatedButton(
+              onPressed: calculateAdvancedBMI,
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size(double.infinity, 55),
+              ),
+              child: const Text(
+                "Calculate",
+                style: TextStyle(fontSize: 18),
+              ),
+            ),
+
+            const SizedBox(height: 30),
+
+            if (bmi != 0) ...[
+
+              Card(
+                elevation: 3,
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+
+                      const Text(
+                        "BMI",
+                        style: TextStyle(fontSize: 18),
+                      ),
+
+                      const SizedBox(height: 8),
+
+                      Text(
+                        bmi.toStringAsFixed(1),
+                        style: const TextStyle(
+                          fontSize: 42,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      Chip(
+                        label: Text(bmiCategory),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start,
+                    children: [
+
+                      const Text(
+                        "Body Composition",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+
+                      const SizedBox(height: 20),
+
+                      Text(
+                        "Body Fat: ${bodyFatController.text}%",
+                        style:
+                            const TextStyle(fontSize: 17),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      Text(
+                        "Fat Mass: ${fatMass.toStringAsFixed(1)} kg",
+                        style:
+                            const TextStyle(fontSize: 17),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      Text(
+                        "Lean Body Mass: ${leanMass.toStringAsFixed(1)} kg",
+                        style:
+                            const TextStyle(fontSize: 17),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      Text(
+                        "FFMI: ${ffmi.toStringAsFixed(1)}",
+                        style:
+                            const TextStyle(fontSize: 17),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start,
+                    children: [
+
+                      const Text(
+                        "Health Profile",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+
+                      const SizedBox(height: 15),
+
+                      Text(
+                        healthProfile,
+                        style:
+                            const TextStyle(fontSize: 17),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start,
+                    children: [
+
+                      const Text(
+                        "Recommendations",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+
+                      const SizedBox(height: 15),
+
+                      Text(
+                        recommendation,
+                        style:
+                            const TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
