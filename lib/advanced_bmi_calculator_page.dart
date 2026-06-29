@@ -166,52 +166,83 @@ class _AdvancedBMICalculatorPageState
       imagePath = "assets/images/Sam-Suleks-Workout-Routine-Diet.png";
       summary = "dude, are you on steroids?🤨 Thats insane💪🔥";
       subtitle = "You have a very suspicious muscle mass while still staying lean. This is extremely rare and impressive";
-      advice = "• Your muscle mass is extremely high...\n• Maintain your current training...\n• Please take care.";
+      advice =
+      "• Your muscle mass is extremely high for your body fat level. You should become go on a bodybuilding show if you haven't already\n"
+      "• I have nothing to tell you since you must already know your stuff at this point. Maintain your current training, but monitor recovery and health markers.\n"
+      "• If you're using steriods and is at risk, please stop using it or atleast use less doses. You're health matters way mroe than your looks\n"
+      "• please take care.";
     } else if (bfCategory == "Low Body Fat" && calculatedFFMI >= 22) {
       imagePath = "assets/images/will.jpg";
       summary = "You are absolutely shredded twin🔥🔥💪";
       subtitle = "You are very muscular and insanely lean.";
-      advice = "• You are already very lean and muscular.\n• Focus on performance and recovery.";
+      advice =
+      "• You are already very lean and muscular.\n"
+      "• While you're looking good and shredded, your low body fat may cause some health issues and is at risks.\n"
+      "• Maintain your calorie intake carefully or might even consider increasing the calories intake.\n"
+      "• Focus on performance and recovery.\n"
+      "• Avoid unnecessary cutting.";
     } else if (bfCategory == "Healthy Body Fat" && calculatedFFMI >= 22) {
       imagePath = "assets/images/images.jpg";
       summary = "You are jacked as hell twin 🔥🔥💪";
       subtitle = "You are very muscular and lean.";
-      advice = "• Excellent physique balance.\n• Continue strength training consistently.";
+      advice =
+      "• Excellent physique balance.\n"
+      "• Continue strength training consistently.\n"
+      "• Keep protein intake high.\n"
+      "• Maintain current nutrition habits.";
     } else if (bfCategory == "Healthy Body Fat" && calculatedFFMI >= 18) {
       imagePath = "assets/images/images.jpg";
       summary = "looking good bro, keep doing what you're doing🔥💪";
       subtitle = "You have a healthy balance of muscle and body fat.";
-      advice = "• You are progressing well.\n• Keep training consistently.";
+      advice =
+      "• You are progressing well.\n"
+      "• Keep training consistently.\n"
+      "• progressive overload will help further gains.\n"
+      "• Maintain a balanced diet.";
     } else if (bfCategory == "High Body Fat" && calculatedFFMI >= 26) {
       imagePath = "assets/images/ed.jpg";
       summary = "You deadlift 300kg let me guess?🔥💪";
       subtitle = "You are very muscular yet also have high body fat.";
-      advice = "• Focus on gradual fat loss while maintaining strength.";
+      advice =
+      "• You have a very high muscle base.\n"
+      "• Focus on gradual fat loss while maintaining strength.\n"
+      "• Add steady cardio 2–3x per week.\n"
+      "• Keep protein intake high.";
     } else if (bfCategory == "High Body Fat" && calculatedFFMI >= 22) {
       imagePath = "assets/images/ed.jpg";
       summary = "You're already jacked, just need to lose those fats twin'🔥💪";
       subtitle = "You are muscular but still have some fats left to lose.";
-      advice = "• Strong muscular base detected.\n• Start a controlled fat loss phase.";
-    } else if (bfCategory == "Healthy Body Fat" && calculatedFFMI >= 16) {
+      advice =
+      "• Strong muscular base detected.\n"
+      "• Start a controlled fat loss phase.\n"
+      "• Prioritize resistance training.\n"
+      "• Track calories more strictly.";
       imagePath = "assets/images/avg.jpg";
       summary = "you're fine as you are but we could definitely get better twin💪🙏";
       subtitle = "you have a healthy body fats but average mass of muscle";
-      advice = "• You are in a healthy range.\n• Build muscle gradually.";
+      advice =
+      "• You are in a healthy range.\n"
+      "• Build muscle gradually with resistance training.\n"
+      "• Keep nutrition balanced.\n"
+      "• Stay consistent.";
     } else if (bfCategory == "High Body Fat") {
       imagePath = "assets/images/pet.jpg";
       summary = "can't lie bro, we need to lock in💔 its ok, you got this twin💪🙏";
       subtitle = "your body fats are really high";
-      advice = "• Focus on fat loss through diet and exercise.";
-    } else if (bfCategory == "Low Body Fat") {
+      advice =
+      "• Focus on fat loss through diet and exercise.\n"
+      "• Reduce processed foods and sugar intake.\n"
+      "• Add regular cardio sessions.\n"
+      "• Stay consistent over time.";
+    } else {
       imagePath = "assets/images/stick.jpg";
       summary = "yo we need to eat more twin💔 its ok, you got this twin💪🙏";
       subtitle = "You have very low body fat.";
-      advice = "• Increase calorie intake gradually.";
-    } else {
-      summary = "Healthy body composition.";
-      subtitle = "Keep maintaining your current lifestyle.";
-      advice = "• Maintain your healthy lifestyle.\n• Stay active and consistent.";
-      imagePath = "";
+      advice =
+      "• Increase calorie intake gradually.\n"
+      "• Prioritize strength training.\n"
+      "• Ensure enough protein and recovery.\n"
+      "• Avoid excessive cutting.";
     }
 
     // FFMI Rating
@@ -312,7 +343,7 @@ class _AdvancedBMICalculatorPageState
             buildInput(ageController, "Age", "yrs", Icons.cake),
 
             DropdownButtonFormField<String>(
-              value: selectedSex,
+              initialValue: selectedSex,
               decoration: InputDecoration(
                 labelText: "Sex",
                 prefixIcon: const Icon(Icons.person),
